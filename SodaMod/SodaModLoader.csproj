@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <SodaDungeonDir>C:\Program Files (x86)\Steam\steamapps\common\Soda Dungeon 2</SodaDungeonDir>
-    <SodaDungeonDLLDir>$(SodaDungeonDir)\SodaDungeon2_Data\Managed</SodaDungeonDLLDir>
+    <SodaDungeonDllDir>$(SodaDungeonDir)\SodaDungeon2_Data\Managed</SodaDungeonDllDir>
     <SodaModLoaderDir>$(SodaDungeonDir)\SodaModLoader</SodaModLoaderDir>
   </PropertyGroup>
   <ItemGroup>
@@ -11,19 +11,19 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp.dll">
-      <HintPath>$(SodaDungeonDLLDir)\Assembly-CSharp.dll</HintPath>
+      <HintPath>$(SodaDungeonDllDir)\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.dll">
-      <HintPath>$(SodaDungeonDLLDir)\UnityEngine.dll</HintPath>
+      <HintPath>$(SodaDungeonDllDir)\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule.dll">
-      <HintPath>$(SodaDungeonDLLDir)\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>$(SodaDungeonDllDir)\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.JSONSerializeModule.dll">
-      <HintPath>$(SodaDungeonDLLDir)\UnityEngine.JSONSerializeModule.dll</HintPath>
+      <HintPath>$(SodaDungeonDllDir)\UnityEngine.JSONSerializeModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
