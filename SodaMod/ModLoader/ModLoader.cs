@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using HarmonyLib;
 
 namespace SodaMod.ModLoader
 {
@@ -10,6 +11,8 @@ namespace SodaMod.ModLoader
 
         public static readonly string ModDirectory = 
             Path.Combine(BaseDirectory, "Mods");
+
+        internal static Harmony patcher = new Harmony("app.fvo.sodamod-loader");
 
         static void Main(string[] args)
         {
