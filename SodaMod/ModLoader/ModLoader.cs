@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Sodamod.Loader
+namespace SodaMod.ModLoader
 {
-    class Loader
+    public class ModLoader
     {
         static void Main(string[] args)
         {
