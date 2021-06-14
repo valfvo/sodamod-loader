@@ -24,5 +24,5 @@ run:
 	$(SD2_PATH)/SodaDungeon2.exe
 
 clean:
-	powershell rm -Recurse -Force bin/
-	powershell rm -Recurse -Force obj/
+	powershell rm -Recurse -Force $(PROJECT_FOLDER)/bin
+	powershell rm -Recurse -Force $(PROJECT_FOLDER)/obj
