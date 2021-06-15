@@ -1,6 +1,7 @@
+using HarmonyLib;
+using SodaMod.IO;
 using System;
 using System.IO;
-using HarmonyLib;
 
 namespace SodaMod.ModLoader
 {
@@ -16,7 +17,10 @@ namespace SodaMod.ModLoader
 
         static void Main(string[] args)
         {
-            // TODO
+            Logger.Connect();
+            Logger.WriteLine("test 1");
+            Logger.WriteLine("test 2");
+            Logger.Close();
         }
     }
 }

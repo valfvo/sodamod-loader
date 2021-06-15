@@ -4,7 +4,7 @@ using System.IO.Pipes;
 
 namespace SodaMod.IO
 {
-    public class Logger
+    public static class Logger
     {
         private static NamedPipeClientStream pipe;
 
@@ -36,7 +36,7 @@ namespace SodaMod.IO
             }
         }
 
-        private static void WriteLine(string value, bool flush = true)
+        public static void WriteLine(string value, bool flush = true)
         {
             try
             {
