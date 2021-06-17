@@ -26,5 +26,9 @@
       <HintPath>$(SodaDungeonDllDir)\UnityEngine.JSONSerializeModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.UI.dll">
+      <HintPath>$(SodaDungeonDllDir)\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
 </Project>

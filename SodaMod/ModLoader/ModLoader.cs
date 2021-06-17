@@ -1,5 +1,4 @@
 using HarmonyLib;
-using SodaMod.IO;
 using System;
 using System.IO;
 
@@ -17,10 +16,25 @@ namespace SodaMod.ModLoader
 
         static void Main(string[] args)
         {
-            Logger.Connect();
-            Logger.WriteLine("test 1");
-            Logger.WriteLine("test 2");
-            Logger.Close();
+            AppDomain.CurrentDomain.AssemblyLoad += ModLoader_AssemblyLoadEventHandler;
+            SodaMod.IO.Logger.Connect();
+        }
+
+        private static void ModLoader_AssemblyLoadEventHandler(
+            object sender,
+            AssemblyLoadEventArgs args)
+        {
+            string assemblyName = args.LoadedAssembly.GetName().Name;
+            if (assemblyName == "System.Xml")
+            {
+                AppDomain.CurrentDomain.AssemblyLoad -= ModLoader_AssemblyLoadEventHandler;
+                PatchAllAssemblies();
+            }
+        }
+
+        private static void PatchAllAssemblies()
+        {
+            patcher.PatchAll();
         }
     }
 }
