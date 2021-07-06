@@ -29,15 +29,13 @@ namespace SodaMod.ModLoader
 
             RectTransform rt = smlOptionsButton.transform as RectTransform;
             RectTransform root = rt.root as RectTransform;
+
             scaleFactor = root.GetComponent<CanvasScaler>().scaleFactor;
             updateDocumentSize(root.rect.size);
 
             Vector2 center = rt.rect.size * (scaleFactor / 2);
             Vector4 clientPosition = new Vector4(center.x, center.y, 0, 1);
-
-            Matrix4x4 scaleMatrix = Matrix4x4.Scale(defaultScale / scaleFactor);
-            // translate -> scale
-            Vector3 unityPosition = scaleMatrix * clientToUnityMatrix * clientPosition;
+            Vector3 unityPosition = clientToUnityMatrix * clientPosition;
             rt.localPosition = unityPosition;
 
             SodaLogger.WriteLine("Scale factor: " + scaleFactor);
@@ -57,12 +55,23 @@ namespace SodaMod.ModLoader
             documentWidth = size.x;
             documentHeight = size.y;
 
-            clientToUnityMatrix = Matrix4x4.Translate(
+            // translate then scale
+            Matrix4x4 ctuTranslationMatrix = Matrix4x4.Translate(
                 new Vector4(-documentWidth / 2, -documentHeight / 2, 0, 1)
             );
-            unityToClientMatrix = Matrix4x4.Translate(
+            Matrix4x4 ctuScaleMatrix = Matrix4x4.Scale(
+                defaultScale / scaleFactor
+            );
+            clientToUnityMatrix = ctuScaleMatrix * ctuTranslationMatrix;
+
+            // scale then translate
+            Matrix4x4 utcScaleMatrix = Matrix4x4.Scale(
+                defaultScale * scaleFactor
+            );
+            Matrix4x4 utcTranslationMatrix = Matrix4x4.Translate(
                 new Vector4(documentWidth / 2, documentHeight / 2, 0, 1)
             );
+            unityToClientMatrix = utcTranslationMatrix * utcScaleMatrix;
         }
 
         private static void WriteTransformTree(Transform transform, int depth = 0)
@@ -75,10 +84,7 @@ namespace SodaMod.ModLoader
                 Camera uiCamera = Main.services.uiCamera.GetCam();
                 Vector4 unityPosition = rt.localPosition;
                 unityPosition.w = 1;
-
-                Matrix4x4 scaleMatrix = Matrix4x4.Scale(defaultScale * scaleFactor);
-                // scale -> translate
-                Vector2 clientPosition = unityToClientMatrix * scaleMatrix * unityPosition;
+                Vector2 clientPosition = unityToClientMatrix * unityPosition;
 
                 SodaLogger.WriteLine(
                     indent + transform.name + ": "
