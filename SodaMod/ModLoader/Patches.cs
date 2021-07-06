@@ -15,7 +15,7 @@ namespace SodaMod.ModLoader
         internal static float documentHeight;
         internal static Matrix4x4 clientToUnityMatrix;
         internal static Matrix4x4 unityToClientMatrix;
-        private static Vector4 defaultScale = new Vector4(1, -1, 1, 1);
+        internal static Vector4 defaultScale = new Vector4(1, -1, 1, 1);
 
         public static void Postfix(UIMenuTitle __instance)
         {
@@ -28,6 +28,10 @@ namespace SodaMod.ModLoader
             smlOptionsButton.name = "SML Button";
 
             RectTransform rt = smlOptionsButton.transform as RectTransform;
+            if (rt is null)
+            {
+                return;
+            }
             RectTransform root = rt.root as RectTransform;
 
             scaleFactor = root.GetComponent<CanvasScaler>().scaleFactor;
