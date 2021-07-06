@@ -30,5 +30,9 @@
       <HintPath>$(SodaDungeonDllDir)\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.UIModule.dll">
+      <HintPath>$(SodaDungeonDllDir)\UnityEngine.UIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
 </Project>

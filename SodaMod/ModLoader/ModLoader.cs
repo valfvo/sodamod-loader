@@ -14,7 +14,7 @@ namespace SodaMod.ModLoader
 
         internal static Harmony patcher = new Harmony("app.fvo.sodamod-loader");
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             AppDomain.CurrentDomain.AssemblyLoad += ModLoader_AssemblyLoadEventHandler;
             SodaMod.IO.Logger.Connect();
@@ -25,6 +25,7 @@ namespace SodaMod.ModLoader
             AssemblyLoadEventArgs args)
         {
             string assemblyName = args.LoadedAssembly.GetName().Name;
+            // TODO: find a better way to check if the last required DLL is loaded
             if (assemblyName == "System.Xml")
             {
                 AppDomain.CurrentDomain.AssemblyLoad -= ModLoader_AssemblyLoadEventHandler;
