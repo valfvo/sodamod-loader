@@ -2,6 +2,7 @@ using HarmonyLib;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using SodaMod.UI;
 
 using SodaLogger = SodaMod.IO.Logger;
 
@@ -19,13 +20,21 @@ namespace SodaMod.ModLoader
 
         public static void Postfix(UIMenuTitle __instance)
         {
+            ButtonElement smlButton = new ButtonElement();
+            smlButton.Id = "sml-button";
+            smlButton.Style
+                .Top(0).Left(0)
+                .BackgroundImage("/assets/images/btn_options");
+
+            Document.GetDocument("menu-title").Body.appendChild(smlButton);
+
             Sprite smlOptionsSprite = Main.services.bundleManager.Get<Sprite>("ui", "btn_options");
 
             Button smlOptionsButton = Main.services.uiBuilder.AddImageButtonTo(
                 __instance.transform, smlOptionsSprite, 0f, 0f
             );
             smlOptionsButton.onClick.AddListener(new UnityAction(SmlOptionsClickListener));
-            smlOptionsButton.name = "SML Button";
+            smlOptionsButton.name = "sml-button";
 
             RectTransform rt = smlOptionsButton.transform as RectTransform;
             if (rt is null)
@@ -63,15 +72,11 @@ namespace SodaMod.ModLoader
             Matrix4x4 ctuTranslationMatrix = Matrix4x4.Translate(
                 new Vector4(-documentWidth / 2, -documentHeight / 2, 0, 1)
             );
-            Matrix4x4 ctuScaleMatrix = Matrix4x4.Scale(
-                defaultScale / scaleFactor
-            );
+            Matrix4x4 ctuScaleMatrix = Matrix4x4.Scale(defaultScale / scaleFactor);
             clientToUnityMatrix = ctuScaleMatrix * ctuTranslationMatrix;
 
             // scale then translate
-            Matrix4x4 utcScaleMatrix = Matrix4x4.Scale(
-                defaultScale * scaleFactor
-            );
+            Matrix4x4 utcScaleMatrix = Matrix4x4.Scale(defaultScale * scaleFactor);
             Matrix4x4 utcTranslationMatrix = Matrix4x4.Translate(
                 new Vector4(documentWidth / 2, documentHeight / 2, 0, 1)
             );
